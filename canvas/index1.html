@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<style>
+			body {
+				margin: 0px;
+				padding: 0px;
+				background-color: #CCCCCC;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="myCanvas" width="800" height="600"></canvas>
+		<script>
+			var nW        = 800;
+			var nH        = 600;
+			var nTotal    = 2000;
+			var nCounter  = 0;
+			var nInterval = 10;
+			var nR        = 50;
+			var nX        = nR+1;
+			var nY        = nR+1;
+			var nDX       = 3;
+			var nDY       = 3;
+			
+			var canvas  = document.getElementById('myCanvas');
+			var context = canvas.getContext('2d');
+			
+			function rand(nMin, nMax) {
+			    return Math.floor(Math.random() * (nMax - nMin) + nMin);
+			}
+			
+			function clear() {
+				context.lineWidth   = 1;
+				context.fillStyle   = 'white';
+				
+				context.beginPath();
+				context.rect(0, 0, nW, nH);
+				context.fill();
+			}
+						
+			function circle(nX, nY) {
+				context.lineWidth   = 1;
+				context.strokeStyle = 'black';
+				
+				context.beginPath();
+				context.arc(nX, nY, nR, 0, 2*Math.PI);
+				context.stroke();
+			}
+			
+			function next() {
+				if (nY + nR >= nH || nY - nR <= 0) {
+					nDY = -nDY;				
+				}
+				
+				if (nX + nR >= nW || nX - nR <= 0) {
+					nDX = -nDX;
+				}
+				nY += nDY;
+				nX += nDX;
+				circle(nX, nY);			
+			}
+			
+			
+			function play() {
+				if (nCounter < nTotal) {
+					clear();
+					next();
+					nCounter ++;
+					setTimeout(play, nInterval);
+				}
+			}
+			
+			clear();
+			play();
+			
+		</script>
+	</body>
+</html>
