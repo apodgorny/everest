@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+    <style>
+		body {
+			margin: 0px;
+			padding: 0px;
+			background-color: #CCCCCC;
+		}
+	</style>
+  </head>
+  <body>
+		<canvas id="myCanvas" width="800" height="800"></canvas>
+		<script>
+			var nW = 800;
+			var nH = 800;
+			var canvas  = document.getElementById('myCanvas');
+			var context = canvas.getContext('2d');
+			
+			function clear() {
+				context.lineWidth   = 1;
+				context.strokeStyle = 'white';
+				context.fillStyle   = 'white';
+				
+				context.beginPath();
+				context.rect(0, 0, nW, nH);
+				context.fill();
+				context.stroke();
+			}
+			
+			function line(nX1, nY1, nX2, nY2) {
+				context.lineWidth   = 1;
+				context.strokeStyle = 'black';
+				
+				context.beginPath();
+				context.moveTo(nX1, nY1);
+				context.lineTo(nX2, nY2);
+				context.stroke();
+			}
+			
+			clear();
+			line(10, 10, 100, 100);
+			line(100, 100, 300, 100);
+
+		</script>
+	</body>
+</html>
