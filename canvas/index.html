@@ -14,18 +14,24 @@
 		<script>
 			var nW = 800;
 			var nH = 800;
+			var nLines    = 100;
+			var nLine     = 0;
+			var nInterval = 100;
+			
 			var canvas  = document.getElementById('myCanvas');
 			var context = canvas.getContext('2d');
 			
+			function rand(nMin, nMax) {
+			    return Math.floor(Math.random() * (nMax - nMin + 1) + nMin);
+			}
+			
 			function clear() {
 				context.lineWidth   = 1;
-				context.strokeStyle = 'white';
 				context.fillStyle   = 'white';
 				
 				context.beginPath();
 				context.rect(0, 0, nW, nH);
 				context.fill();
-				context.stroke();
 			}
 			
 			function line(nX1, nY1, nX2, nY2) {
@@ -38,10 +44,25 @@
 				context.stroke();
 			}
 			
+			function randomLine() {
+				context.lineWidth   = 1;
+				context.strokeStyle = 'black';
+				context.lineTo(rand(0, nW), rand(0, nH));
+				context.stroke();
+			}
+			
+			function play() {
+				if (nLine < nLines) {
+					setTimeout(play, nInterval);
+					randomLine();
+					nLine ++;
+				}
+			}
+			
 			clear();
-			line(10, 10, 100, 100);
-			line(100, 100, 300, 100);
-
+			context.moveTo(0, 0);
+			play();
+			
 		</script>
 	</body>
 </html>
