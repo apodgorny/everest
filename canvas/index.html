@@ -12,17 +12,17 @@
   <body>
 		<canvas id="myCanvas" width="800" height="800"></canvas>
 		<script>
-			var nW = 800;
-			var nH = 800;
-			var nLines    = 100;
-			var nLine     = 0;
-			var nInterval = 100;
+			var nW            = 800;
+			var nH            = 800;
+			var nTotalLines   = 100;
+			var nLineCounter  = 0;
+			var nInterval     = 100;
 			
 			var canvas  = document.getElementById('myCanvas');
 			var context = canvas.getContext('2d');
 			
 			function rand(nMin, nMax) {
-			    return Math.floor(Math.random() * (nMax - nMin + 1) + nMin);
+			    return Math.floor(Math.random() * (nMax - nMin) + nMin);
 			}
 			
 			function clear() {
@@ -33,17 +33,7 @@
 				context.rect(0, 0, nW, nH);
 				context.fill();
 			}
-			
-			function line(nX1, nY1, nX2, nY2) {
-				context.lineWidth   = 1;
-				context.strokeStyle = 'black';
-				
-				context.beginPath();
-				context.moveTo(nX1, nY1);
-				context.lineTo(nX2, nY2);
-				context.stroke();
-			}
-			
+						
 			function randomLine() {
 				context.lineWidth   = 1;
 				context.strokeStyle = 'black';
@@ -52,15 +42,15 @@
 			}
 			
 			function play() {
-				if (nLine < nLines) {
-					setTimeout(play, nInterval);
+				if (nLineCounter < nTotalLines) {
 					randomLine();
-					nLine ++;
+					nLineCounter ++;
+					setTimeout(play, nInterval);
 				}
 			}
 			
 			clear();
-			context.moveTo(0, 0);
+			context.moveTo(50, 50);
 			play();
 			
 		</script>
