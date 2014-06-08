@@ -28,12 +28,12 @@
 					_oContext.beginPath();
 					_oContext.moveTo(_nLastX, _nLastY);
 					
+					_nLastX = _nLastX + rand(-nInc, nInc);
+					_nLastY = _nLastY + rand(-nInc, nInc);
+					_oContext.strokeStyle = '#666666'
+					
 					if (rand(0, 10) % 2) {
-						_nLastX = _nLastX + rand(-nInc, nInc);
-						_oContext.strokeStyle = '#000000'
-					} else {
-						_nLastY = _nLastY + rand(-nInc, nInc);
-						_oContext.strokeStyle = '#666666'
+						_oContext.strokeStyle = '#' + rand(0, 255).toString(16) + rand(0, 255).toString(16) + rand(0, 255).toString(16);
 					}
 					
 					if (_nLastY < 0)   { _nLastY = nInc;       }
@@ -54,13 +54,13 @@
 			var nCounter  = 0;
 			var nInterval = 10;
 			var _nLastX, _nLastY;
-			var nInc = 70;
+			var nInc = 10;
 			
 			var canvas  = document.getElementById('myCanvas');
 			var _oContext = canvas.getContext('2d');
 			
 			function rand(nMin, nMax) {
-			    return Math.floor(Math.random() * (nMax - nMin) + nMin);
+			    return Math.floor(Math.random() * (nMax - nMin + 1) + nMin);
 			}
 			
 			function clear() {
