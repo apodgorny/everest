@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+    <style>
+		body {
+			margin: 0px;
+			padding: 0px;
+			background-color: #CCCCCC;
+		}
+	</style>
+  </head>
+  <body>
+		<canvas id="myCanvas" width="800" height="800"></canvas>
+		<script>
+			var Worm = function(oCanvas) {
+				var _nLastX,
+					_nLastY,
+					_oContext = oCanvas.getContext('2d'),
+					_nW       = oCanvas.width,
+					_nH       = oCanvas.height;
+					
+				var _initialize = function() {
+					_nLastX = _nW / 2;
+					_nLastY = _nH / 2;
+				};
+				
+				this.move = function() {
+					_oContext.beginPath();
+					_oContext.moveTo(_nLastX, _nLastY);
+					
+					if (rand(0, 10) % 2) {
+						_nLastX = _nLastX + rand(-nInc, nInc);
+						_oContext.strokeStyle = '#000000'
+					} else {
+						_nLastY = _nLastY + rand(-nInc, nInc);
+						_oContext.strokeStyle = '#666666'
+					}
+					
+					if (_nLastY < 0)   { _nLastY = nInc;       }
+					if (_nLastY > _nH) { _nLastY = _nH - nInc; }
+					if (_nLastX < 0)   { _nLastX = nInc;       }
+					if (_nLastX > _nW) { _nLastX = _nW - nInc; }
+					
+					_oContext.lineTo(_nLastX, _nLastY);
+					_oContext.stroke();
+				}
+				
+				_initialize();
+			}
+		
+			var nW            = 800;
+			var nH            = 800;
+			var nTotal   = 10000;
+			var nCounter  = 0;
+			var nInterval     = 10;
+			var _nLastX, _nLastY;
+			var nInc = 70;
+			
+			var canvas  = document.getElementById('myCanvas');
+			var _oContext = canvas.getContext('2d');
+			
+			function rand(nMin, nMax) {
+			    return Math.floor(Math.random() * (nMax - nMin) + nMin);
+			}
+			
+			function clear() {
+				_oContext.lineWidth   = 1;
+				_oContext.fillStyle   = 'white';
+				
+				_oContext.beginPath();
+				_oContext.rect(0, 0, nW, nH);
+				_oContext.fill();
+			}
+						
+			function play() {
+				if (nCounter < nTotal) {
+					oWorm1.move();
+					oWorm2.move();
+					oWorm3.move();
+					nCounter ++;
+					setTimeout(play, nInterval);
+				}
+			}
+			
+			var oWorm1 = new Worm(canvas);
+			var oWorm2 = new Worm(canvas);
+			var oWorm3 = new Worm(canvas);
+			
+			clear();
+			play();
+			
+		</script>
+	</body>
+</html>
